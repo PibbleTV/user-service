@@ -23,11 +23,6 @@ public class UserServiceImpl implements UserService {
     private final UserRepository userRepository;
     private PublicKey publicKey;
 
-    @PostConstruct
-    public void init() {
-        this.publicKey = decodeKey();
-    }
-
 
     @Override
     public void saveUser(String token) {
@@ -78,18 +73,6 @@ public class UserServiceImpl implements UserService {
                     .getBody();
         } catch (Exception e) {
             throw new RuntimeException("Failed to decode token", e);
-        }
-    }
-
-    private PublicKey decodeKey() {
-        try {
-            String publicKeyPEM = System.getenv("KEYCLOAK_PUBLIC_KEY");
-
-            byte[] decoded = Base64.getDecoder().decode(publicKeyPEM);
-            X509EncodedKeySpec keySpec = new X509EncodedKeySpec(decoded);
-            return KeyFactory.getInstance("RSA").generatePublic(keySpec);
-        } catch (Exception e) {
-            throw new RuntimeException("Failed to decode public key", e);
         }
     }
 
