@@ -25,9 +25,6 @@ public class UserEntity {
     @Column(unique = true, nullable = false)
     private String username;
 
-    @Column(nullable = false)
-    private String role;
-
     @Lob
     private byte[] bgImage;
 
@@ -35,6 +32,6 @@ public class UserEntity {
     private byte[] profileImage;
 
     @Column(nullable = false)
-    private Boolean isBanned = false;
+    private Boolean isBanned;
 
 }

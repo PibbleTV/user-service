@@ -12,7 +12,6 @@ import lombok.NoArgsConstructor;
 public class User {
     private String id;
     private String username;
-    private String role;
     private String bgImage;
     private String profileImage;
     private Boolean isBanned;
