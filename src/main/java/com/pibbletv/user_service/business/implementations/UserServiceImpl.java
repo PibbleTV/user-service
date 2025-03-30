@@ -21,17 +21,10 @@ import java.util.Base64;
 public class UserServiceImpl implements UserService {
 
     private final UserRepository userRepository;
-    private PublicKey publicKey;
 
 
     @Override
-    public void saveUser(String token) {
-
-        Claims claims = decodeToken(token);
-
-        String userId = claims.getSubject();
-        String username = claims.get("preferred_username", String.class);
-
+    public void saveUser(String userId, String username) {
 
         if (userRepository.findById(Long.parseLong(userId)).isPresent()) {
             return;
@@ -52,29 +45,15 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User getUser(String token) {
-        Claims claims = decodeToken(token);
-        String userId = claims.getSubject();
+    public User getUser(String userId) {
 
-        // Retrieve the UserEntity from the database
         UserEntity userEntity = userRepository.findById(Long.parseLong(userId))
                 .orElseThrow(() -> new RuntimeException("User not found with ID: " + userId));
 
-        // Convert UserEntity to User using the UserConverter
+
         return UserConverter.convertToObject(userEntity);
     }
 
-    private Claims decodeToken(String token) {
-        try {
-            return Jwts.parserBuilder()
-                    .setSigningKey(publicKey)
-                    .build()
-                    .parseClaimsJws(token)
-                    .getBody();
-        } catch (Exception e) {
-            throw new RuntimeException("Failed to decode token", e);
-        }
-    }
 
     private byte[] loadDefaultImage(String imagePath) {
         try (InputStream inputStream = getClass().getClassLoader().getResourceAsStream(imagePath)) {

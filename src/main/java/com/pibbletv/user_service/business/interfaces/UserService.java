@@ -3,8 +3,8 @@ import com.pibbletv.user_service.domain.User;
 
 public interface UserService {
 
-void saveUser(String token);
+void saveUser(String userId, String username);
 
-User getUser(String token);
+User getUser(String userId);
 
 }
