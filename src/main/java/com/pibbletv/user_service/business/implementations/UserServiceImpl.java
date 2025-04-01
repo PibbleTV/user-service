@@ -1,20 +1,15 @@
 package com.pibbletv.user_service.business.implementations;
-import io.jsonwebtoken.Claims;
-import io.jsonwebtoken.Jwts;
-import jakarta.annotation.PostConstruct;
-import org.springframework.stereotype.Service;
-import com.pibbletv.user_service.persistance.jpa.UserRepository;
+
+import com.pibbletv.user_service.persistance.repository.UserRepository;
 import com.pibbletv.user_service.business.interfaces.UserService;
 import com.pibbletv.user_service.persistance.entities.UserEntity;
 import com.pibbletv.user_service.business.converters.UserConverter;
 import com.pibbletv.user_service.domain.User;
 import lombok.AllArgsConstructor;
+import org.springframework.stereotype.Service;
+import reactor.core.publisher.Mono;
 
 import java.io.InputStream;
-import java.security.KeyFactory;
-import java.security.PublicKey;
-import java.security.spec.X509EncodedKeySpec;
-import java.util.Base64;
 
 @Service
 @AllArgsConstructor
@@ -22,38 +17,33 @@ public class UserServiceImpl implements UserService {
 
     private final UserRepository userRepository;
 
-
     @Override
-    public void saveUser(String userId, String username) {
-
-        if (userRepository.findById(Long.parseLong(userId)).isPresent()) {
-            return;
-        }
+    public Mono<Void> saveUser(String userId, String username) {
 
         byte[] defaultBgImage = loadDefaultImage("images/default-bg.webp");
         byte[] defaultProfileImage = loadDefaultImage("images/default-pfp.webp");
 
-        UserEntity userEntity = UserEntity.builder()
-                .id(userId)
-                .username(username)
-                .bgImage(defaultBgImage)
-                .profileImage(defaultProfileImage)
-                .isBanned(false)
-                .build();
+        return userRepository.findById(Long.parseLong(userId))
+                .flatMap(existingUser -> Mono.empty())
+                .switchIfEmpty(Mono.defer(() -> {
 
-        userRepository.save(userEntity);
+                    UserEntity userEntity = new UserEntity();
+                    userEntity.setId(Long.parseLong(userId));
+                    userEntity.setUsername(username);
+                    userEntity.setBgImage(defaultBgImage);
+                    userEntity.setProfileImage(defaultProfileImage);
+                    userEntity.setIsBanned(false);
+                    return userRepository.save(userEntity).then();
+                }))
+                .then();
     }
 
     @Override
-    public User getUser(String userId) {
-
-        UserEntity userEntity = userRepository.findById(Long.parseLong(userId))
-                .orElseThrow(() -> new RuntimeException("User not found with ID: " + userId));
-
-
-        return UserConverter.convertToObject(userEntity);
+    public Mono<User> getUser(String userId) {
+        return userRepository.findById(Long.parseLong(userId))
+                .map(UserConverter::convertToObject)
+                .switchIfEmpty(Mono.error(new RuntimeException("User not found")));
     }
-
 
     private byte[] loadDefaultImage(String imagePath) {
         try (InputStream inputStream = getClass().getClassLoader().getResourceAsStream(imagePath)) {

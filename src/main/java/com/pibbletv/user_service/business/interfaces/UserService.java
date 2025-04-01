@@ -1,10 +1,9 @@
 package com.pibbletv.user_service.business.interfaces;
+
 import com.pibbletv.user_service.domain.User;
+import reactor.core.publisher.Mono;
 
 public interface UserService {
-
-void saveUser(String userId, String username);
-
-User getUser(String userId);
-
+    Mono<Void> saveUser(String userId, String username);
+    Mono<User> getUser(String userId);
 }
