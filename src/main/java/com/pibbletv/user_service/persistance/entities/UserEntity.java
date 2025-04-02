@@ -10,22 +10,22 @@ import lombok.NoArgsConstructor;
 import jakarta.validation.constraints.NotEmpty;
 import org.hibernate.validator.constraints.Length;
 
-@Table("users")  // R2DBC uses this instead of JPA's @Entity
+@Table("users")
 @Data
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
 public class UserEntity {
 
-    @Id  // R2DBC still uses @Id, but without JPA's @GeneratedValue
+    @Id
     private Long id;
 
     @NotEmpty(message = "Username is required")
     @Length(min = 3, max = 17, message = "Username must be between 3 and 17 characters")
-    @Column("username")  // Use Spring Data @Column
+    @Column("username")
     private String username;
 
-    private byte[] bgImage;  // R2DBC automatically handles byte[] for BLOBs
+    private byte[] bgImage;
 
     private byte[] profileImage;
 
