@@ -20,29 +20,26 @@ public class UserServiceImpl implements UserService {
     private final ImageLoader imageLoader;
 
     @Override
-    public Mono<Void> saveUser(String userId, String username) {
+    public Mono<Void> saveUser(String username) {
         byte[] defaultBgImage = imageLoader.load("images/default-bg.webp");
         byte[] defaultProfileImage = imageLoader.load("images/default-pfp.webp");
 
-        return userRepository.existsById(Long.parseLong(userId))
-                .flatMap(exists -> {
-                    if (exists) {
-                        return Mono.error(new RuntimeException("User already exists"));
-                    } else {
-                        UserEntity userEntity = new UserEntity();
-                        userEntity.setId(Long.parseLong(userId));
-                        userEntity.setUsername(username);
-                        userEntity.setBgImage(defaultBgImage);
-                        userEntity.setProfileImage(defaultProfileImage);
-                        userEntity.setIsBanned(false);
-                        return userRepository.save(userEntity).then();
-                    }
-                });
+        return userRepository.findByUsername(username)
+                .flatMap(user -> Mono.error(new RuntimeException("User already exists")))
+                .switchIfEmpty(Mono.defer(() -> {
+                    UserEntity userEntity = new UserEntity();
+                    userEntity.setUsername(username);
+                    userEntity.setBgImage(defaultBgImage);
+                    userEntity.setProfileImage(defaultProfileImage);
+                    userEntity.setIsBanned(false);
+                    return userRepository.save(userEntity).then();
+                }))
+        .then();
     }
 
     @Override
-    public Mono<User> getUser(String userId) {
-        return userRepository.findById(Long.parseLong(userId))
+    public Mono<User> getUser(String username) {
+        return userRepository.findByUsername(username)
                 .map(UserConverter::convertToObject)
                 .switchIfEmpty(Mono.error(new RuntimeException("User not found")));
     }

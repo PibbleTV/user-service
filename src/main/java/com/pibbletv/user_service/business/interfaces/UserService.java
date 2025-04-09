@@ -4,6 +4,6 @@ import com.pibbletv.user_service.domain.User;
 import reactor.core.publisher.Mono;
 
 public interface UserService {
-    Mono<Void> saveUser(String userId, String username);
-    Mono<User> getUser(String userId);
+    Mono<Void> saveUser(String username);
+    Mono<User> getUser(String username);
 }

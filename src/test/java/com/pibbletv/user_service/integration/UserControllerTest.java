@@ -30,17 +30,12 @@ public class UserControllerTest {
     @Autowired
     private WebTestClient webTestClient;
 
-    @Autowired
-    private UserService userService;
-
 
     @Test
     void testSaveUser_shouldReturnOk_whenUserIsSavedSuccessfully() {
 
-        String userId = "123";
         String username = "testUser";
         Map<String, Object> requestData = new HashMap<>();
-        requestData.put("userId", userId);
         requestData.put("username", username);
 
         webTestClient.post()
@@ -54,10 +49,8 @@ public class UserControllerTest {
     @Test
     void testSaveUser_shouldReturnBadRequest_whenUserAlreadyExists() {
 
-        String userId = "123";
         String username = "testUser";
         Map<String, Object> requestData = new HashMap<>();
-        requestData.put("userId", userId);
         requestData.put("username", username);
 
         webTestClient.post()
@@ -67,5 +60,6 @@ public class UserControllerTest {
                 .exchange()
                 .expectStatus().isBadRequest();
     }
+    
 
 }

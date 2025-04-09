@@ -38,46 +38,55 @@ class UserServiceImplTest {
 
     @Test
     void testSaveUser_NewUser_SavesSuccessfully() {
-        String userId = "123";
         String username = "testuser";
 
-        when(userRepository.existsById(Long.parseLong(userId))).thenReturn(Mono.just(false));
-        when(userRepository.save(any(UserEntity.class))).thenReturn(Mono.just(new UserEntity()));
+        when(userRepository.findByUsername(username)).thenReturn(Mono.empty());
+        when(userRepository.save(any(UserEntity.class))).thenReturn(Mono.empty());
 
-        StepVerifier.create(userService.saveUser(userId, username))
+        StepVerifier.create(userService.saveUser(username))
                 .verifyComplete();
 
-        verify(userRepository).save(argThat(user ->
-                user.getId().equals(123L) &&
-                        user.getUsername().equals("testuser")
+        verify(userRepository).save(argThat(user -> user.getUsername().equals("testuser")
         ));
     }
 
 
     @Test
     void testGetUser_ExistingUser_ReturnsUser() {
-        String userId = "123";
+
+        String username = "testuser";
+
         UserEntity entity = new UserEntity();
         entity.setId(123L);
-        entity.setUsername("testuser");
+        entity.setUsername(username);
+        entity.setBgImage(imageLoader.load("images/default-bg.webp"));
+        entity.setProfileImage(imageLoader.load("images/default-pfp.webp"));
+        entity.setIsBanned(false);
 
-        when(userRepository.findById(123L)).thenReturn(Mono.just(entity));
+        when(userRepository.findByUsername(username)).thenReturn(Mono.just(entity));
 
         User expected = UserConverter.convertToObject(entity);
 
-        StepVerifier.create(userService.getUser(userId))
+        StepVerifier.create(userService.getUser(username))
                 .expectNextMatches(user -> user.getId().equals(expected.getId()) && user.getUsername().equals(expected.getUsername()))
                 .verifyComplete();
     }
 
     @Test
     void testSaveUser_ExistingUser_DoesNotSaveAgain() {
-        String userId = "123";
+
         String username = "testuser";
 
-        when(userRepository.existsById(Long.parseLong(userId))).thenReturn(Mono.just(true));
+        UserEntity entity = new UserEntity();
+        entity.setId(123L);
+        entity.setUsername(username);
+        entity.setBgImage(imageLoader.load("images/default-bg.webp"));
+        entity.setProfileImage(imageLoader.load("images/default-pfp.webp"));
+        entity.setIsBanned(false);
 
-        StepVerifier.create(userService.saveUser(userId, username))
+        when(userRepository.findByUsername(username)).thenReturn(Mono.just(entity));
+
+        StepVerifier.create(userService.saveUser(username))
                 .expectErrorMatches(throwable -> throwable instanceof RuntimeException &&
                         throwable.getMessage().equals("User already exists"))
                 .verify();
@@ -87,9 +96,10 @@ class UserServiceImplTest {
 
     @Test
     void testGetUser_NotFound_ThrowsError() {
-        when(userRepository.findById(123L)).thenReturn(Mono.empty());
+        String username = "testuser";
+        when(userRepository.findByUsername(username)).thenReturn(Mono.empty());
 
-        StepVerifier.create(userService.getUser("123"))
+        StepVerifier.create(userService.getUser(username))
                 .expectErrorMatches(throwable -> throwable instanceof RuntimeException &&
                         throwable.getMessage().equals("User not found"))
                 .verify();
