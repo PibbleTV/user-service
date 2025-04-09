@@ -1,5 +1,6 @@
 package com.pibbletv.user_service.business.implementations;
 
+import com.pibbletv.user_service.business.ImageLoader;
 import com.pibbletv.user_service.persistance.repository.UserRepository;
 import com.pibbletv.user_service.business.interfaces.UserService;
 import com.pibbletv.user_service.persistance.entities.UserEntity;
@@ -16,26 +17,27 @@ import java.io.InputStream;
 public class UserServiceImpl implements UserService {
 
     private final UserRepository userRepository;
+    private final ImageLoader imageLoader;
 
     @Override
     public Mono<Void> saveUser(String userId, String username) {
+        byte[] defaultBgImage = imageLoader.load("images/default-bg.webp");
+        byte[] defaultProfileImage = imageLoader.load("images/default-pfp.webp");
 
-        byte[] defaultBgImage = loadDefaultImage("images/default-bg.webp");
-        byte[] defaultProfileImage = loadDefaultImage("images/default-pfp.webp");
-
-        return userRepository.findById(Long.parseLong(userId))
-                .flatMap(existingUser -> Mono.empty())
-                .switchIfEmpty(Mono.defer(() -> {
-
-                    UserEntity userEntity = new UserEntity();
-                    userEntity.setId(Long.parseLong(userId));
-                    userEntity.setUsername(username);
-                    userEntity.setBgImage(defaultBgImage);
-                    userEntity.setProfileImage(defaultProfileImage);
-                    userEntity.setIsBanned(false);
-                    return userRepository.save(userEntity).then();
-                }))
-                .then();
+        return userRepository.existsById(Long.parseLong(userId))
+                .flatMap(exists -> {
+                    if (exists) {
+                        return Mono.error(new RuntimeException("User already exists"));
+                    } else {
+                        UserEntity userEntity = new UserEntity();
+                        userEntity.setId(Long.parseLong(userId));
+                        userEntity.setUsername(username);
+                        userEntity.setBgImage(defaultBgImage);
+                        userEntity.setProfileImage(defaultProfileImage);
+                        userEntity.setIsBanned(false);
+                        return userRepository.save(userEntity).then();
+                    }
+                });
     }
 
     @Override
@@ -45,14 +47,4 @@ public class UserServiceImpl implements UserService {
                 .switchIfEmpty(Mono.error(new RuntimeException("User not found")));
     }
 
-    private byte[] loadDefaultImage(String imagePath) {
-        try (InputStream inputStream = getClass().getClassLoader().getResourceAsStream(imagePath)) {
-            if (inputStream == null) {
-                throw new RuntimeException("Default image not found: " + imagePath);
-            }
-            return inputStream.readAllBytes();
-        } catch (Exception e) {
-            throw new RuntimeException("Failed to load default image: " + imagePath, e);
-        }
-    }
 }
