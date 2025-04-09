@@ -75,13 +75,6 @@ class UserServiceImplTest {
         String userId = "123";
         String username = "testuser";
 
-        UserEntity existingUser = new UserEntity();
-        existingUser.setId(123L);
-        existingUser.setUsername("existing");
-        existingUser.setBgImage(imageLoader.load("images/default-bg.webp"));
-        existingUser.setProfileImage(imageLoader.load("images/default-pfp.webp"));
-        existingUser.setIsBanned(false);
-
         when(userRepository.existsById(Long.parseLong(userId))).thenReturn(Mono.just(true));
 
         StepVerifier.create(userService.saveUser(userId, username))
