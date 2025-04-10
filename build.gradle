@@ -45,6 +45,8 @@ dependencies {
     testImplementation 'org.mockito:mockito-core'
     implementation 'com.fasterxml.jackson.core:jackson-databind'
     testImplementation 'io.projectreactor:reactor-test'
+    testImplementation 'io.r2dbc:r2dbc-h2'
+    runtimeOnly 'com.h2database:h2'
 }
 
 tasks.named('test') {
