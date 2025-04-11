@@ -26,6 +26,7 @@ jobs:
         run: |
           gradle wrapper
           ./gradlew clean build
+
       - name: Cache SonarQube packages
         uses: actions/cache@v4
         with:
@@ -42,4 +43,6 @@ jobs:
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
           SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
-        run: ./gradlew build sonar --info
+        run: |
+          ./gradlew sonar -Dsonar.host.url=${SONAR_HOST_URL} -Dsonar.login=${SONAR_TOKEN}
+          ./gradlew build sonar --info
