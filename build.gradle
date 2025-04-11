@@ -52,7 +52,7 @@ dependencies {
 
 sonar {
     properties {
-        property "sonar.host.url", "http://host.docker.internal:9000"
+        property "sonar.host.url", "http://localhost:9000"
         property "sonar.projectKey", "user-service-sonarqube"
         property "sonar.projectName", "user-service"
     }
