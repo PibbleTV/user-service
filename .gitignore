@@ -138,7 +138,7 @@ hs_err_pid*
 replay_pid*
 
 # Properties #
-application.properties
+*.properties
 
 # Queries for easy access #
 queries.txt
