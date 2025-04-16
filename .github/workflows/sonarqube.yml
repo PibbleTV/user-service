@@ -19,6 +19,7 @@ jobs:
         with:
           java-version: 17
           distribution: 'temurin'
+
       - name: Grant execute permission for Gradle
         run: chmod +x ./gradlew
       - name: Build Spring Boot app with Gradle
@@ -43,5 +44,6 @@ jobs:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
           SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
         run: |
+          ./gradlew clean build
           ./gradlew clean test jacocoTestReport
           ./gradlew sonar "-Dsonar.projectKey=user-service-sonarqube" "-Dsonar.projectName=user-service" "-Dsonar.host.url=${{ secrets.SONAR_HOST_URL }}" "-Dsonar.token=${{ secrets.SONAR_TOKEN }}"
