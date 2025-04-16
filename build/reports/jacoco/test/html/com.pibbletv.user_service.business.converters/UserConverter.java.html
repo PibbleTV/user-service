@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>UserConverter.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">user_service</a> &gt; <a href="index.source.html" class="el_package">com.pibbletv.user_service.business.converters</a> &gt; <span class="el_source">UserConverter.java</span></div><h1>UserConverter.java</h1><pre class="source lang-java linenums">package com.pibbletv.user_service.business.converters;
+
+import com.pibbletv.user_service.domain.User;
+import com.pibbletv.user_service.persistance.entities.UserEntity;
+
+import java.util.Base64;
+
+public final class UserConverter {
+
+<span class="nc" id="L10">    private UserConverter() {</span>
+<span class="nc" id="L11">        throw new IllegalStateException(&quot;Utility class&quot;);</span>
+    }
+
+    public static User convertToObject(UserEntity entity) {
+<span class="pc bpc" id="L15" title="1 of 2 branches missed.">        if (entity == null) return null;</span>
+
+<span class="fc" id="L17">        return User.builder()</span>
+<span class="fc" id="L18">                .id(entity.getId())</span>
+<span class="fc" id="L19">                .username(entity.getUsername())</span>
+<span class="pc bpc" id="L20" title="1 of 2 branches missed.">                .bgImage(entity.getBgImage() != null ? Base64.getEncoder().encodeToString(entity.getBgImage()) : null)</span>
+<span class="pc bpc" id="L21" title="1 of 2 branches missed.">                .profileImage(entity.getProfileImage() != null ? Base64.getEncoder().encodeToString(entity.getProfileImage()) : null)</span>
+<span class="fc" id="L22">                .isBanned(entity.getIsBanned())</span>
+<span class="fc" id="L23">                .build();</span>
+    }
+
+    public static UserEntity convertToEntity(User user) {
+<span class="nc bnc" id="L27" title="All 2 branches missed.">        if (user == null) return null;</span>
+
+<span class="nc" id="L29">        return UserEntity.builder()</span>
+<span class="nc" id="L30">                .id(user.getId())</span>
+<span class="nc" id="L31">                .username(user.getUsername())</span>
+<span class="nc bnc" id="L32" title="All 2 branches missed.">                .bgImage(user.getBgImage() != null ? Base64.getDecoder().decode(user.getBgImage()) : null)</span>
+<span class="nc bnc" id="L33" title="All 2 branches missed.">                .profileImage(user.getProfileImage() != null ? Base64.getDecoder().decode(user.getProfileImage()) : null)</span>
+<span class="nc" id="L34">                .isBanned(user.getIsBanned())</span>
+<span class="nc" id="L35">                .build();</span>
+    }
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>
