@@ -31,20 +31,20 @@ public class UserControllerTest {
     private WebTestClient webTestClient;
 
 
-//    @Test
-//    void testSaveUser_shouldReturnOk_whenUserIsSavedSuccessfully() {
-//
-//        String username = "testUser";
-//        Map<String, Object> requestData = new HashMap<>();
-//        requestData.put("username", username);
-//
-//        webTestClient.post()
-//                .uri("/user/saveUser")
-//                .contentType(org.springframework.http.MediaType.APPLICATION_JSON)
-//                .bodyValue(requestData)
-//                .exchange()
-//                .expectStatus().isOk();
-//    }
+    @Test
+    void testSaveUser_shouldReturnOk_whenUserIsSavedSuccessfully() {
+
+        String username = "testUser";
+        Map<String, Object> requestData = new HashMap<>();
+        requestData.put("username", username);
+
+        webTestClient.post()
+                .uri("/user/saveUser")
+                .contentType(org.springframework.http.MediaType.APPLICATION_JSON)
+                .bodyValue(requestData)
+                .exchange()
+                .expectStatus().isOk();
+    }
 
     @Test
     void testSaveUser_shouldReturnBadRequest_whenUserAlreadyExists() {

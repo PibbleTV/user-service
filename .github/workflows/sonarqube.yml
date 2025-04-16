@@ -43,6 +43,8 @@ jobs:
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
           SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
+
         run: |
-          ./gradlew sonar -Dsonar.host.url=http://localhost:9000 -Dsonar.login=${{ secrets.SONAR_TOKEN }}
+          ./gradlew clean test jacocoTestReport sonarqube
+          ./gradlew sonar "-Dsonar.projectKey=user-service-sonarqube" "-Dsonar.projectName=user-service" "-Dsonar.host.url=${{ secrets.SONAR_HOST_URL }}" "-Dsonar.token=${{ secrets.SONAR_TOKEN }}"
           ./gradlew build sonar --info
