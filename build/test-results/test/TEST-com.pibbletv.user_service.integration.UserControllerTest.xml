@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<<<<<<< HEAD
 <testsuite name="com.pibbletv.user_service.integration.UserControllerTest" tests="2" skipped="0" failures="1" errors="0" timestamp="2025-04-16T09:11:20.732Z" hostname="DESKTOP-NS6POVE" time="0.25">
   <properties/>
   <testcase name="testSaveUser_shouldReturnOk_whenUserIsSavedSuccessfully()" classname="com.pibbletv.user_service.integration.UserControllerTest" time="0.239">
@@ -18,6 +19,13 @@
   <testcase name="testSaveUser_shouldReturnBadRequest_whenUserAlreadyExists()" classname="com.pibbletv.user_service.integration.UserControllerTest" time="0.01"/>
   <system-out><![CDATA[2025-04-16T11:09:45.328+02:00  INFO 17484 --- [user-service] [    Test worker] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [com.pibbletv.user_service.integration.UserControllerTest]: UserControllerTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
 2025-04-16T11:09:45.347+02:00  INFO 17484 --- [user-service] [    Test worker] .b.t.c.SpringBootTestContextBootstrapper : Found @SpringBootConfiguration com.pibbletv.user_service.UserServiceApplication for test class com.pibbletv.user_service.integration.UserControllerTest
+=======
+<testsuite name="com.pibbletv.user_service.integration.UserControllerTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2025-04-10T23:34:53.580Z" hostname="DESKTOP-NS6POVE" time="0.179">
+  <properties/>
+  <testcase name="testSaveUser_shouldReturnBadRequest_whenUserAlreadyExists()" classname="com.pibbletv.user_service.integration.UserControllerTest" time="0.179"/>
+  <system-out><![CDATA[2025-04-11T01:34:52.553+02:00  INFO 8144 --- [user-service] [    Test worker] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [com.pibbletv.user_service.integration.UserControllerTest]: UserControllerTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2025-04-11T01:34:52.570+02:00  INFO 8144 --- [user-service] [    Test worker] .b.t.c.SpringBootTestContextBootstrapper : Found @SpringBootConfiguration com.pibbletv.user_service.UserServiceApplication for test class com.pibbletv.user_service.integration.UserControllerTest
+>>>>>>> d457510debfe74abf48e087fb5c8ab810e302bc3
 
   .   ____          _            __ _ _
  /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
@@ -28,6 +36,7 @@
 
  :: Spring Boot ::                (v3.4.4)
 
+<<<<<<< HEAD
 2025-04-16T11:09:45.520+02:00  INFO 17484 --- [user-service] [    Test worker] c.p.u.integration.UserControllerTest     : Starting UserControllerTest using Java 17.0.12 with PID 17484 (started by hristo in D:\Individual Assignment\PibbleTV-Backend\user-service)
 2025-04-16T11:09:45.521+02:00  INFO 17484 --- [user-service] [    Test worker] c.p.u.integration.UserControllerTest     : The following 1 profile is active: "dev"
 2025-04-16T11:09:45.802+02:00  INFO 17484 --- [user-service] [    Test worker] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data R2DBC repositories in DEFAULT mode.
@@ -554,6 +563,34 @@ Caused by: org.apache.hc.core5.http.NoHttpResponseException: localhost:8761 fail
 
 {"timestamp":"2025-04-16T09:11:20.913+00:00","path":"/user/saveUser","status":400,"error":"Bad Request","requestId":"12069abf"}
 
+=======
+2025-04-11T01:34:52.696+02:00  INFO 8144 --- [user-service] [    Test worker] c.p.u.integration.UserControllerTest     : Starting UserControllerTest using Java 17.0.12 with PID 8144 (started by hristo in D:\Individual Assignment\PibbleTV-Backend\user-service)
+2025-04-11T01:34:52.696+02:00  INFO 8144 --- [user-service] [    Test worker] c.p.u.integration.UserControllerTest     : The following 1 profile is active: "dev"
+2025-04-11T01:34:52.877+02:00  INFO 8144 --- [user-service] [    Test worker] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data R2DBC repositories in DEFAULT mode.
+2025-04-11T01:34:52.889+02:00  INFO 8144 --- [user-service] [    Test worker] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 10 ms. Found 1 R2DBC repository interface.
+2025-04-11T01:34:52.955+02:00  INFO 8144 --- [user-service] [    Test worker] o.s.cloud.context.scope.GenericScope     : BeanFactory id=00922868-9053-3699-9fe0-d49064db35dc
+2025-04-11T01:34:53.407+02:00  INFO 8144 --- [user-service] [    Test worker] DiscoveryClientOptionalArgsConfiguration : Eureka HTTP Client uses RestTemplate.
+2025-04-11T01:34:53.538+02:00  WARN 8144 --- [user-service] [    Test worker] iguration$LoadBalancerCaffeineWarnLogger : Spring Cloud LoadBalancer is currently working with the default cache. While this cache implementation is useful for development and tests, it's recommended to use Caffeine cache in production.You can switch to using Caffeine cache, by adding it and org.springframework.cache.caffeine.CaffeineCacheManager to the classpath.
+2025-04-11T01:34:53.546+02:00  INFO 8144 --- [user-service] [    Test worker] o.s.c.n.eureka.InstanceInfoFactory       : Setting initial instance status as: STARTING
+2025-04-11T01:34:53.548+02:00  INFO 8144 --- [user-service] [    Test worker] com.netflix.discovery.DiscoveryClient    : Initializing Eureka in region us-east-1
+2025-04-11T01:34:53.549+02:00  INFO 8144 --- [user-service] [    Test worker] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2025-04-11T01:34:53.549+02:00  INFO 8144 --- [user-service] [    Test worker] com.netflix.discovery.DiscoveryClient    : Disable delta property : false
+2025-04-11T01:34:53.549+02:00  INFO 8144 --- [user-service] [    Test worker] com.netflix.discovery.DiscoveryClient    : Single vip registry refresh property : null
+2025-04-11T01:34:53.549+02:00  INFO 8144 --- [user-service] [    Test worker] com.netflix.discovery.DiscoveryClient    : Force full registry fetch : false
+2025-04-11T01:34:53.549+02:00  INFO 8144 --- [user-service] [    Test worker] com.netflix.discovery.DiscoveryClient    : Application is null : false
+2025-04-11T01:34:53.549+02:00  INFO 8144 --- [user-service] [    Test worker] com.netflix.discovery.DiscoveryClient    : Registered Applications size is zero : true
+2025-04-11T01:34:53.549+02:00  INFO 8144 --- [user-service] [    Test worker] com.netflix.discovery.DiscoveryClient    : Application version is -1: true
+2025-04-11T01:34:53.549+02:00  INFO 8144 --- [user-service] [    Test worker] com.netflix.discovery.DiscoveryClient    : Getting all instance registry info from the eureka server
+2025-04-11T01:34:53.571+02:00  INFO 8144 --- [user-service] [    Test worker] com.netflix.discovery.DiscoveryClient    : The response status is 200
+2025-04-11T01:34:53.572+02:00  INFO 8144 --- [user-service] [    Test worker] com.netflix.discovery.DiscoveryClient    : Starting heartbeat executor: renew interval is: 30
+2025-04-11T01:34:53.572+02:00  INFO 8144 --- [user-service] [    Test worker] c.n.discovery.InstanceInfoReplicator     : InstanceInfoReplicator onDemand update allowed rate per min is 4
+2025-04-11T01:34:53.573+02:00  INFO 8144 --- [user-service] [    Test worker] com.netflix.discovery.DiscoveryClient    : Discovery Client initialized at timestamp 1744328093573 with initial instances count: 1
+2025-04-11T01:34:53.574+02:00  INFO 8144 --- [user-service] [    Test worker] o.s.c.n.e.s.EurekaServiceRegistry        : Registering application USER-SERVICE with eureka with status UP
+2025-04-11T01:34:53.575+02:00  INFO 8144 --- [user-service] [    Test worker] com.netflix.discovery.DiscoveryClient    : Saw local status change event StatusChangeEvent [timestamp=1744328093575, current=UP, previous=STARTING]
+2025-04-11T01:34:53.575+02:00  INFO 8144 --- [user-service] [foReplicator-%d] com.netflix.discovery.DiscoveryClient    : DiscoveryClient_USER-SERVICE/host.docker.internal:user-service:8081: registering service...
+2025-04-11T01:34:53.578+02:00  INFO 8144 --- [user-service] [    Test worker] c.p.u.integration.UserControllerTest     : Started UserControllerTest in 1.004 seconds (process running for 7.311)
+2025-04-11T01:34:53.590+02:00  INFO 8144 --- [user-service] [foReplicator-%d] com.netflix.discovery.DiscoveryClient    : DiscoveryClient_USER-SERVICE/host.docker.internal:user-service:8081 - registration status: 204
+>>>>>>> d457510debfe74abf48e087fb5c8ab810e302bc3
 ]]></system-out>
   <system-err><![CDATA[]]></system-err>
 </testsuite>
