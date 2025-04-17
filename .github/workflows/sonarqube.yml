@@ -19,14 +19,12 @@ jobs:
         with:
           java-version: 17
           distribution: 'temurin'
-
       - name: Grant execute permission for Gradle
         run: chmod +x ./gradlew
       - name: Build Spring Boot app with Gradle
         run: |
           gradle wrapper
           ./gradlew clean build
-
       - name: Cache SonarQube packages
         uses: actions/cache@v4
         with:
@@ -39,7 +37,6 @@ jobs:
           path: ~/.gradle/caches
           key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle') }}
           restore-keys: ${{ runner.os }}-gradle
-
       - name: Run tests and SonarCloud analysis
         run: ./gradlew clean test jacocoTestReport sonar -Dsonar.organization=pibbletv -Dsonar.projectKey=PibbleTV_user-service -Dsonar.host.url=${{ secrets.SONAR_HOST_URL }} -Dsonar.token=${{ secrets.SONAR_TOKEN }}
         env:
