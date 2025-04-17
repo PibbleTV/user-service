@@ -9,7 +9,6 @@ plugins {
 sonar {
     properties {
         property "sonar.java.coveragePlugin", "jacoco"
-        property "sonar.jacoco.reportPaths", "build/reports/jacoco/test/jacocoTestReport.xml"
         property "sonar.qualitygate.wait", true
         property "sonar.coverage.exclusions", [
                 'src/**/com/pibbletv/user_service/controller/UserController.java',
@@ -73,13 +72,6 @@ dependencies {
     runtimeOnly 'com.h2database:h2'
 }
 
-sonar {
-    properties {
-        property "sonar.host.url", "http://localhost:9000"
-        property "sonar.projectKey", "user-service-sonarqube"
-        property "sonar.projectName", "user-service"
-    }
-}
 
 jacoco {
     toolVersion = "0.8.7"
