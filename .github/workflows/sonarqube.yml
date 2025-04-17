@@ -39,9 +39,9 @@ jobs:
           path: ~/.gradle/caches
           key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle') }}
           restore-keys: ${{ runner.os }}-gradle
-      - name: Build and analyze
+
+      - name: Run tests and SonarCloud analysis
+        run: ./gradlew clean test jacocoTestReport sonar -Dsonar.organization=pibbletv -Dsonar.projectKey=PibbleTV_user-service -Dsonar.host.url=${{ secrets.SONAR_HOST_URL }} -Dsonar.token=${{ secrets.SONAR_TOKEN }}
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
           SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
-        run: |
-          ./gradlew clean test jacocoTestReport sonar "-Dsonar.organization=pibbletv"-Dsonar.projectKey=PibbleTV_user-service" "-Dsonar.host.url=${{ secrets.SONAR_HOST_URL }}" "-Dsonar.token=${{ secrets.SONAR_TOKEN }}"
