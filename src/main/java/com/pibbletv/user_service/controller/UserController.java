@@ -3,16 +3,9 @@ package com.pibbletv.user_service.controller;
 import com.pibbletv.user_service.business.interfaces.UserService;
 import com.pibbletv.user_service.domain.User;
 import lombok.AllArgsConstructor;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.server.ResponseStatusException;
 import reactor.core.publisher.Mono;
-
-import java.util.Map;
-
-import static jakarta.ws.rs.core.Response.ok;
-import static org.springframework.http.ResponseEntity.badRequest;
 
 @RestController
 @RequestMapping("/user")
@@ -21,15 +14,26 @@ public class UserController {
 
     private final UserService userService;
 
-    @PostMapping("/saveUser")
-    public Mono<Void> saveUser(@RequestParam String username) {
-        return userService.saveUser(username)
-                .onErrorResume(RuntimeException.class, ex ->
-                        Mono.error(new ResponseStatusException(
-                                HttpStatus.BAD_REQUEST,
-                                ex.getMessage()
-                        ))
-                );
+    @PostMapping("/addUser")
+    public Mono<Void> addUser(@RequestParam String username) {
+        return userService.addUser(username);
+    }
+
+    @PutMapping("/updateUser")
+    public Mono<Void> updateUser(@RequestBody User user) {
+        return userService.updateUser(user);
+    }
+
+    @PreAuthorize("hasRole('admin')")
+    @PutMapping(value = "/banUser")
+    public Mono<Void> banUser(@RequestParam String username) {
+        return userService.banUser(username);
+    }
+
+    @PreAuthorize("hasRole('admin')")
+    @PutMapping(value = "/unbanUser")
+    public Mono<Void> unbanUser(@RequestParam String username) {
+        return userService.unbanUser(username);
     }
 
     @GetMapping(value = "/getUser")
