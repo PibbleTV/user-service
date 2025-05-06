@@ -43,7 +43,7 @@ class UserServiceImplTest {
         when(userRepository.findByUsername(username)).thenReturn(Mono.empty());
         when(userRepository.save(any(UserEntity.class))).thenReturn(Mono.empty());
 
-        StepVerifier.create(userService.saveUser(username))
+        StepVerifier.create(userService.addUser(username))
                 .verifyComplete();
 
         verify(userRepository).save(argThat(user -> user.getUsername().equals("testuser")
@@ -86,7 +86,7 @@ class UserServiceImplTest {
 
         when(userRepository.findByUsername(username)).thenReturn(Mono.just(entity));
 
-        StepVerifier.create(userService.saveUser(username))
+        StepVerifier.create(userService.addUser(username))
                 .expectErrorMatches(throwable -> throwable instanceof RuntimeException &&
                         throwable.getMessage().equals("User already exists"))
                 .verify();
