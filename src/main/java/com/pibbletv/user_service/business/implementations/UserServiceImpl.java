@@ -20,7 +20,7 @@ public class UserServiceImpl implements UserService {
     private final ImageLoader imageLoader;
 
     @Override
-    public Mono<Void> saveUser(String username) {
+    public Mono<Void> addUser(String username) {
         byte[] defaultBgImage = imageLoader.load("images/default-bg.webp");
         byte[] defaultProfileImage = imageLoader.load("images/default-pfp.webp");
 
@@ -35,6 +35,48 @@ public class UserServiceImpl implements UserService {
                     return userRepository.save(userEntity).then();
                 }))
         .then();
+    }
+
+    @Override
+    public Mono<Void> updateUser(User user) {
+        if (user.getId() == null) {
+            return Mono.error(new IllegalArgumentException("Cannot update user without ID"));
+        }
+        return userRepository.existsById(user.getId())
+                .flatMap(exists -> {
+                    if (!exists) {
+                        return Mono.error(new IllegalArgumentException("User does not exist"));
+                    }
+                    return userRepository.save(UserConverter.convertToEntity(user)).then();
+                });
+    }
+
+    @Override
+    public Mono<Void> banUser(String username) {
+        return userRepository.findByUsername(username)
+                .switchIfEmpty(Mono.error(new IllegalArgumentException("User not found")))
+                .flatMap(user -> {
+                    if (Boolean.TRUE.equals(user.getIsBanned())) {
+                        return Mono.error(new IllegalStateException("User is already banned"));
+                    }
+                    user.setIsBanned(true);
+                    return userRepository.save(user);
+                })
+                .then();
+    }
+
+    @Override
+    public Mono<Void> unbanUser(String username) {
+        return userRepository.findByUsername(username)
+                .switchIfEmpty(Mono.error(new IllegalArgumentException("User not found")))
+                .flatMap(user -> {
+                    if (Boolean.FALSE.equals(user.getIsBanned())) {
+                        return Mono.error(new IllegalStateException("User is not banned"));
+                    }
+                    user.setIsBanned(false);
+                    return userRepository.save(user);
+                })
+                .then();
     }
 
     @Override
