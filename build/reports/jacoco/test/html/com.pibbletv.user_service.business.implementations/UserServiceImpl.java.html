@@ -20,7 +20,7 @@ public class UserServiceImpl implements UserService {
     private final ImageLoader imageLoader;
 
     @Override
-    public Mono&lt;Void&gt; saveUser(String username) {
+    public Mono&lt;Void&gt; addUser(String username) {
 <span class="fc" id="L24">        byte[] defaultBgImage = imageLoader.load(&quot;images/default-bg.webp&quot;);</span>
 <span class="fc" id="L25">        byte[] defaultProfileImage = imageLoader.load(&quot;images/default-pfp.webp&quot;);</span>
 
@@ -38,10 +38,52 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public Mono&lt;Void&gt; updateUser(User user) {
+<span class="pc bpc" id="L42" title="1 of 2 branches missed.">        if (user.getId() == null) {</span>
+<span class="nc" id="L43">            return Mono.error(new IllegalArgumentException(&quot;Cannot update user without ID&quot;));</span>
+        }
+<span class="fc" id="L45">        return userRepository.existsById(user.getId())</span>
+<span class="fc" id="L46">                .flatMap(exists -&gt; {</span>
+<span class="fc bfc" id="L47" title="All 2 branches covered.">                    if (!exists) {</span>
+<span class="fc" id="L48">                        return Mono.error(new IllegalArgumentException(&quot;User does not exist&quot;));</span>
+                    }
+<span class="fc" id="L50">                    return userRepository.save(UserConverter.convertToEntity(user)).then();</span>
+                });
+    }
+
+    @Override
+    public Mono&lt;Void&gt; banUser(String username) {
+<span class="fc" id="L56">        return userRepository.findByUsername(username)</span>
+<span class="fc" id="L57">                .switchIfEmpty(Mono.error(new IllegalArgumentException(&quot;User not found&quot;)))</span>
+<span class="fc" id="L58">                .flatMap(user -&gt; {</span>
+<span class="fc bfc" id="L59" title="All 2 branches covered.">                    if (Boolean.TRUE.equals(user.getIsBanned())) {</span>
+<span class="fc" id="L60">                        return Mono.error(new IllegalStateException(&quot;User is already banned&quot;));</span>
+                    }
+<span class="fc" id="L62">                    user.setIsBanned(true);</span>
+<span class="fc" id="L63">                    return userRepository.save(user);</span>
+                })
+<span class="fc" id="L65">                .then();</span>
+    }
+
+    @Override
+    public Mono&lt;Void&gt; unbanUser(String username) {
+<span class="fc" id="L70">        return userRepository.findByUsername(username)</span>
+<span class="fc" id="L71">                .switchIfEmpty(Mono.error(new IllegalArgumentException(&quot;User not found&quot;)))</span>
+<span class="fc" id="L72">                .flatMap(user -&gt; {</span>
+<span class="fc bfc" id="L73" title="All 2 branches covered.">                    if (Boolean.FALSE.equals(user.getIsBanned())) {</span>
+<span class="fc" id="L74">                        return Mono.error(new IllegalStateException(&quot;User is not banned&quot;));</span>
+                    }
+<span class="fc" id="L76">                    user.setIsBanned(false);</span>
+<span class="fc" id="L77">                    return userRepository.save(user);</span>
+                })
+<span class="fc" id="L79">                .then();</span>
+    }
+
+    @Override
     public Mono&lt;User&gt; getUser(String username) {
-<span class="fc" id="L42">        return userRepository.findByUsername(username)</span>
-<span class="fc" id="L43">                .map(UserConverter::convertToObject)</span>
-<span class="fc" id="L44">                .switchIfEmpty(Mono.error(new RuntimeException(&quot;User not found&quot;)));</span>
+<span class="fc" id="L84">        return userRepository.findByUsername(username)</span>
+<span class="fc" id="L85">                .map(UserConverter::convertToObject)</span>
+<span class="fc" id="L86">                .switchIfEmpty(Mono.error(new RuntimeException(&quot;User not found&quot;)));</span>
     }
 
 }
