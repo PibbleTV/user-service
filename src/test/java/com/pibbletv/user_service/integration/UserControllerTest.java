@@ -30,17 +30,37 @@ public class UserControllerTest {
     @Autowired
     private WebTestClient webTestClient;
 
+    @Mock
+    private UserService userService;
+
     @Test
+    void testSaveUser_shouldReturnOk_whenUserIsSavedSuccessfully() {
+
+        String username = "testUser";
+
+        when(userService.addUser(username)).thenReturn(Mono.empty());
+
+        webTestClient.post()
+                .uri(uriBuilder -> uriBuilder
+                        .path("/user/addUser")
+                        .queryParam("username", username)
+                        .build())
+                .exchange()
+                .expectStatus().isOk();
+    }
+
+        @Test
     void testSaveUser_shouldReturnBadRequest_whenUserAlreadyExists() {
 
         String username = "testUser";
-        Map<String, Object> requestData = new HashMap<>();
-        requestData.put("username", username);
+
+        when(userService.addUser(username)).thenThrow(new RuntimeException("User already exists"));
 
         webTestClient.post()
-                .uri("/user/saveUser")
-                .contentType(org.springframework.http.MediaType.APPLICATION_JSON)
-                .bodyValue(requestData)
+                .uri(uriBuilder -> uriBuilder
+                        .path("/user/addUser")
+                        .queryParam("username", username)
+                        .build())
                 .exchange()
                 .expectStatus().isBadRequest();
     }
