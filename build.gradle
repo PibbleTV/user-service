@@ -59,6 +59,7 @@ dependencies {
     compileOnly 'org.projectlombok:lombok'
     annotationProcessor 'org.projectlombok:lombok'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    testImplementation 'org.springframework.security:spring-security-test'
     testImplementation 'org.junit.jupiter:junit-jupiter:5.12.2'
     testImplementation 'org.mockito:mockito-core:5.17.0'
     testImplementation 'org.mockito:mockito-junit-jupiter:5.17.0'
@@ -93,6 +94,10 @@ test {
 }
 
 
-        tasks.named('test') {
-            useJUnitPlatform()
-        }
+tasks.named('test') {
+    useJUnitPlatform()
+}
+
+tasks.withType(Test) {
+    systemProperty 'eureka.client.enabled', 'false'
+}
