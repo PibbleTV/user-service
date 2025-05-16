@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="com.pibbletv.user_service.UserServiceApplicationTests" tests="1" skipped="0" failures="0" errors="0" timestamp="2025-05-12T21:50:40.917Z" hostname="DESKTOP-NS6POVE" time="0.959">
+<testsuite name="com.pibbletv.user_service.UserServiceApplicationTests" tests="1" skipped="0" failures="0" errors="0" timestamp="2025-05-14T17:18:57.909Z" hostname="DESKTOP-NS6POVE" time="1.155">
   <properties/>
-  <testcase name="contextLoads()" classname="com.pibbletv.user_service.UserServiceApplicationTests" time="0.959"/>
-  <system-out><![CDATA[23:50:35.403 [Test worker] INFO org.springframework.test.context.support.AnnotationConfigContextLoaderUtils -- Could not detect default configuration classes for test class [com.pibbletv.user_service.UserServiceApplicationTests]: UserServiceApplicationTests does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
-23:50:35.663 [Test worker] INFO org.springframework.boot.test.context.SpringBootTestContextBootstrapper -- Found @SpringBootConfiguration com.pibbletv.user_service.UserServiceApplication for test class com.pibbletv.user_service.UserServiceApplicationTests
+  <testcase name="contextLoads()" classname="com.pibbletv.user_service.UserServiceApplicationTests" time="1.155"/>
+  <system-out><![CDATA[19:18:52.626 [Test worker] INFO org.springframework.test.context.support.AnnotationConfigContextLoaderUtils -- Could not detect default configuration classes for test class [com.pibbletv.user_service.UserServiceApplicationTests]: UserServiceApplicationTests does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+19:18:52.865 [Test worker] INFO org.springframework.boot.test.context.SpringBootTestContextBootstrapper -- Found @SpringBootConfiguration com.pibbletv.user_service.UserServiceApplication for test class com.pibbletv.user_service.UserServiceApplicationTests
 
   .   ____          _            __ _ _
  /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
@@ -14,18 +14,18 @@
 
  :: Spring Boot ::                (v3.4.4)
 
-2025-05-12T23:50:37.036+02:00  INFO 1184 --- [user-service] [    Test worker] c.p.u.UserServiceApplicationTests        : Starting UserServiceApplicationTests using Java 17.0.12 with PID 1184 (started by hristo in D:\Individual Assignment\PibbleTV-Backend\user-service)
-2025-05-12T23:50:37.037+02:00  INFO 1184 --- [user-service] [    Test worker] c.p.u.UserServiceApplicationTests        : The following 1 profile is active: "test"
-2025-05-12T23:50:38.031+02:00  INFO 1184 --- [user-service] [    Test worker] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data R2DBC repositories in DEFAULT mode.
-2025-05-12T23:50:38.325+02:00  INFO 1184 --- [user-service] [    Test worker] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 280 ms. Found 1 R2DBC repository interface.
-2025-05-12T23:50:38.593+02:00  INFO 1184 --- [user-service] [    Test worker] o.s.cloud.context.scope.GenericScope     : BeanFactory id=6bebeb8b-19dd-30f7-a5dd-3d5c2e100a7d
-2025-05-12T23:50:39.947+02:00  INFO 1184 --- [user-service] [    Test worker] ctiveUserDetailsServiceAutoConfiguration : 
+2025-05-14T19:18:54.094+02:00  INFO 7376 --- [user-service] [    Test worker] c.p.u.UserServiceApplicationTests        : Starting UserServiceApplicationTests using Java 17.0.12 with PID 7376 (started by hristo in D:\Individual Assignment\PibbleTV-Backend\user-service)
+2025-05-14T19:18:54.096+02:00  INFO 7376 --- [user-service] [    Test worker] c.p.u.UserServiceApplicationTests        : The following 1 profile is active: "test"
+2025-05-14T19:18:55.071+02:00  INFO 7376 --- [user-service] [    Test worker] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data R2DBC repositories in DEFAULT mode.
+2025-05-14T19:18:55.331+02:00  INFO 7376 --- [user-service] [    Test worker] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 248 ms. Found 1 R2DBC repository interface.
+2025-05-14T19:18:55.630+02:00  INFO 7376 --- [user-service] [    Test worker] o.s.cloud.context.scope.GenericScope     : BeanFactory id=6bebeb8b-19dd-30f7-a5dd-3d5c2e100a7d
+2025-05-14T19:18:56.967+02:00  INFO 7376 --- [user-service] [    Test worker] ctiveUserDetailsServiceAutoConfiguration : 
 
-Using generated security password: 5e239de8-9161-4e5a-8cdc-471eed6b60ec
+Using generated security password: 40f97b0a-203a-44c3-8e82-58c9db32599c
 
-2025-05-12T23:50:40.557+02:00  INFO 1184 --- [user-service] [    Test worker] DiscoveryClientOptionalArgsConfiguration : Eureka HTTP Client uses RestTemplate.
-2025-05-12T23:50:40.785+02:00  WARN 1184 --- [user-service] [    Test worker] iguration$LoadBalancerCaffeineWarnLogger : Spring Cloud LoadBalancer is currently working with the default cache. While this cache implementation is useful for development and tests, it's recommended to use Caffeine cache in production.You can switch to using Caffeine cache, by adding it and org.springframework.cache.caffeine.CaffeineCacheManager to the classpath.
-2025-05-12T23:50:40.910+02:00  INFO 1184 --- [user-service] [    Test worker] c.p.u.UserServiceApplicationTests        : Started UserServiceApplicationTests in 4.596 seconds (process running for 7.236)
+2025-05-14T19:18:57.560+02:00  INFO 7376 --- [user-service] [    Test worker] DiscoveryClientOptionalArgsConfiguration : Eureka HTTP Client uses RestTemplate.
+2025-05-14T19:18:57.782+02:00  WARN 7376 --- [user-service] [    Test worker] iguration$LoadBalancerCaffeineWarnLogger : Spring Cloud LoadBalancer is currently working with the default cache. While this cache implementation is useful for development and tests, it's recommended to use Caffeine cache in production.You can switch to using Caffeine cache, by adding it and org.springframework.cache.caffeine.CaffeineCacheManager to the classpath.
+2025-05-14T19:18:57.902+02:00  INFO 7376 --- [user-service] [    Test worker] c.p.u.UserServiceApplicationTests        : Started UserServiceApplicationTests in 4.513 seconds (process running for 6.946)
 ]]></system-out>
   <system-err><![CDATA[]]></system-err>
 </testsuite>

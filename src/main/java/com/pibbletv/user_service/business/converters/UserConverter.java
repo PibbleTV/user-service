@@ -16,6 +16,7 @@ public final class UserConverter {
 
         return User.builder()
                 .id(entity.getId())
+                .userId(entity.getUserId())
                 .username(entity.getUsername())
                 .bgImage(entity.getBgImage() != null ? Base64.getEncoder().encodeToString(entity.getBgImage()) : null)
                 .profileImage(entity.getProfileImage() != null ? Base64.getEncoder().encodeToString(entity.getProfileImage()) : null)
@@ -28,6 +29,7 @@ public final class UserConverter {
 
         return UserEntity.builder()
                 .id(user.getId())
+                .userId(user.getUserId())
                 .username(user.getUsername())
                 .bgImage(user.getBgImage() != null ? Base64.getDecoder().decode(user.getBgImage()) : null)
                 .profileImage(user.getProfileImage() != null ? Base64.getDecoder().decode(user.getProfileImage()) : null)
