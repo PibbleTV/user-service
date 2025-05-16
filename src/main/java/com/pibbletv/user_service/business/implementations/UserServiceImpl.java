@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import reactor.core.publisher.Mono;
 
 import java.io.InputStream;
+import java.util.UUID;
 
 @Service
 @AllArgsConstructor
@@ -23,11 +24,13 @@ public class UserServiceImpl implements UserService {
     public Mono<Void> addUser(String username) {
         byte[] defaultBgImage = imageLoader.load("images/default-bg.webp");
         byte[] defaultProfileImage = imageLoader.load("images/default-pfp.webp");
+        UUID uuid = UUID.randomUUID();
 
         return userRepository.findByUsername(username)
                 .flatMap(user -> Mono.error(new RuntimeException("User already exists")))
                 .switchIfEmpty(Mono.defer(() -> {
                     UserEntity userEntity = new UserEntity();
+                    userEntity.setUserId(uuid);
                     userEntity.setUsername(username);
                     userEntity.setBgImage(defaultBgImage);
                     userEntity.setProfileImage(defaultProfileImage);
