@@ -1,52 +1,52 @@
-package com.pibbletv.user_service.integration;
-
-
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.pibbletv.user_service.business.ImageLoader;
-import com.pibbletv.user_service.business.converters.UserConverter;
-import com.pibbletv.user_service.business.implementations.UserServiceImpl;
-import com.pibbletv.user_service.business.interfaces.UserService;
-import com.pibbletv.user_service.controller.UserController;
-import com.pibbletv.user_service.domain.User;
-import com.pibbletv.user_service.persistance.entities.UserEntity;
-import com.pibbletv.user_service.persistance.repository.UserRepository;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.mockito.Mockito;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.web.reactive.AutoConfigureWebTestClient;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.http.MediaType;
-import org.springframework.security.test.context.support.WithMockUser;
-import org.springframework.test.web.reactive.server.WebTestClient;
-import reactor.core.publisher.Mono;
-
-import java.util.Base64;
-import java.util.HashMap;
-import java.util.Map;
-
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.anyString;
-import static org.mockito.Mockito.when;
-
-@SpringBootTest
-@AutoConfigureWebTestClient
-public class UserControllerTest {
-
-    @Autowired
-    private WebTestClient webTestClient;
-
-    @Mock
-    private UserRepository userRepository;
-
-    @Mock
-    private ImageLoader imageLoader;
-
-    @InjectMocks
-    private UserServiceImpl userService;
-
+//package com.pibbletv.user_service.integration;
+//
+//
+//import com.fasterxml.jackson.databind.ObjectMapper;
+//import com.pibbletv.user_service.business.ImageLoader;
+//import com.pibbletv.user_service.business.converters.UserConverter;
+//import com.pibbletv.user_service.business.implementations.UserServiceImpl;
+//import com.pibbletv.user_service.business.interfaces.UserService;
+//import com.pibbletv.user_service.controller.UserController;
+//import com.pibbletv.user_service.domain.User;
+//import com.pibbletv.user_service.persistance.entities.UserEntity;
+//import com.pibbletv.user_service.persistance.repository.UserRepository;
+//import org.junit.jupiter.api.BeforeEach;
+//import org.junit.jupiter.api.Test;
+//import org.mockito.InjectMocks;
+//import org.mockito.Mock;
+//import org.mockito.Mockito;
+//import org.springframework.beans.factory.annotation.Autowired;
+//import org.springframework.boot.test.autoconfigure.web.reactive.AutoConfigureWebTestClient;
+//import org.springframework.boot.test.context.SpringBootTest;
+//import org.springframework.http.MediaType;
+//import org.springframework.security.test.context.support.WithMockUser;
+//import org.springframework.test.web.reactive.server.WebTestClient;
+//import reactor.core.publisher.Mono;
+//
+//import java.util.Base64;
+//import java.util.HashMap;
+//import java.util.Map;
+//
+//import static org.mockito.ArgumentMatchers.any;
+//import static org.mockito.ArgumentMatchers.anyString;
+//import static org.mockito.Mockito.when;
+//
+//@SpringBootTest
+//@AutoConfigureWebTestClient
+//public class UserControllerTest {
+//
+//    @Autowired
+//    private WebTestClient webTestClient;
+//
+//    @Mock
+//    private UserRepository userRepository;
+//
+//    @Mock
+//    private ImageLoader imageLoader;
+//
+//    @InjectMocks
+//    private UserServiceImpl userService;
+//
 //
 //    @BeforeEach
 //    void setup() {
@@ -278,6 +278,6 @@ public class UserControllerTest {
 //                .exchange()
 //                .expectStatus().isNotFound();
 //    }
-}
-
-
+//}
+//
+//
