@@ -22,10 +22,12 @@ import java.util.UUID;
 public class UserEntity {
 
     @Id
+    @Column("id")
     private Long id;
 
     @NotNull
     @NotEmpty
+    @Column("userId")
     private UUID userId;
 
     @NotEmpty(message = "Username is required")
@@ -33,8 +35,10 @@ public class UserEntity {
     @Column("username")
     private String username;
 
+    @Column("bgImage")
     private byte[] bgImage;
 
+    @Column("profileImage")
     private byte[] profileImage;
 
     @Column("is_banned")
