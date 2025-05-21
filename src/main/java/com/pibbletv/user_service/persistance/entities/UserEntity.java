@@ -28,7 +28,7 @@ public class UserEntity {
     @NotNull
     @NotEmpty
     @Column("userId")
-    private UUID userId;
+    private String userId;
 
     @NotEmpty(message = "Username is required")
     @Length(min = 3, max = 17, message = "Username must be between 3 and 17 characters")

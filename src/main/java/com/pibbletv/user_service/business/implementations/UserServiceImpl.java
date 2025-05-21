@@ -30,7 +30,7 @@ public class UserServiceImpl implements UserService {
                 .flatMap(user -> Mono.error(new RuntimeException("User already exists")))
                 .switchIfEmpty(Mono.defer(() -> {
                     UserEntity userEntity = new UserEntity();
-                    userEntity.setUserId(uuid);
+                    userEntity.setUserId(uuid.toString());
                     userEntity.setUsername(username);
                     userEntity.setBgImage(defaultBgImage);
                     userEntity.setProfileImage(defaultProfileImage);

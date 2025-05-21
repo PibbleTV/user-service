@@ -12,27 +12,29 @@ public final class UserConverter {
     }
 
     public static User convertToObject(UserEntity entity) {
-<span class="pc bpc" id="L15" title="1 of 2 branches missed.">        if (entity == null) return null;</span>
+<span class="nc bnc" id="L15" title="All 2 branches missed.">        if (entity == null) return null;</span>
 
-<span class="fc" id="L17">        return User.builder()</span>
-<span class="fc" id="L18">                .id(entity.getId())</span>
-<span class="fc" id="L19">                .username(entity.getUsername())</span>
-<span class="pc bpc" id="L20" title="1 of 2 branches missed.">                .bgImage(entity.getBgImage() != null ? Base64.getEncoder().encodeToString(entity.getBgImage()) : null)</span>
-<span class="pc bpc" id="L21" title="1 of 2 branches missed.">                .profileImage(entity.getProfileImage() != null ? Base64.getEncoder().encodeToString(entity.getProfileImage()) : null)</span>
-<span class="fc" id="L22">                .isBanned(entity.getIsBanned())</span>
-<span class="fc" id="L23">                .build();</span>
+<span class="nc" id="L17">        return User.builder()</span>
+<span class="nc" id="L18">                .id(entity.getId())</span>
+<span class="nc" id="L19">                .userId(entity.getUserId())</span>
+<span class="nc" id="L20">                .username(entity.getUsername())</span>
+<span class="nc bnc" id="L21" title="All 2 branches missed.">                .bgImage(entity.getBgImage() != null ? Base64.getEncoder().encodeToString(entity.getBgImage()) : null)</span>
+<span class="nc bnc" id="L22" title="All 2 branches missed.">                .profileImage(entity.getProfileImage() != null ? Base64.getEncoder().encodeToString(entity.getProfileImage()) : null)</span>
+<span class="nc" id="L23">                .isBanned(entity.getIsBanned())</span>
+<span class="nc" id="L24">                .build();</span>
     }
 
     public static UserEntity convertToEntity(User user) {
-<span class="pc bpc" id="L27" title="1 of 2 branches missed.">        if (user == null) return null;</span>
+<span class="nc bnc" id="L28" title="All 2 branches missed.">        if (user == null) return null;</span>
 
-<span class="fc" id="L29">        return UserEntity.builder()</span>
-<span class="fc" id="L30">                .id(user.getId())</span>
-<span class="fc" id="L31">                .username(user.getUsername())</span>
-<span class="pc bpc" id="L32" title="1 of 2 branches missed.">                .bgImage(user.getBgImage() != null ? Base64.getDecoder().decode(user.getBgImage()) : null)</span>
-<span class="pc bpc" id="L33" title="1 of 2 branches missed.">                .profileImage(user.getProfileImage() != null ? Base64.getDecoder().decode(user.getProfileImage()) : null)</span>
-<span class="fc" id="L34">                .isBanned(user.getIsBanned())</span>
-<span class="fc" id="L35">                .build();</span>
+<span class="nc" id="L30">        return UserEntity.builder()</span>
+<span class="nc" id="L31">                .id(user.getId())</span>
+<span class="nc" id="L32">                .userId(user.getUserId())</span>
+<span class="nc" id="L33">                .username(user.getUsername())</span>
+<span class="nc bnc" id="L34" title="All 2 branches missed.">                .bgImage(user.getBgImage() != null ? Base64.getDecoder().decode(user.getBgImage()) : null)</span>
+<span class="nc bnc" id="L35" title="All 2 branches missed.">                .profileImage(user.getProfileImage() != null ? Base64.getDecoder().decode(user.getProfileImage()) : null)</span>
+<span class="nc" id="L36">                .isBanned(user.getIsBanned())</span>
+<span class="nc" id="L37">                .build();</span>
     }
 
 }

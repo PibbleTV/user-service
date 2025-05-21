@@ -19,11 +19,10 @@ public class SecurityConfig {
         http
                 .csrf(ServerHttpSecurity.CsrfSpec::disable)
                 .authorizeExchange(exchanges -> exchanges
-                        .pathMatchers("/eureka/**").authenticated()
-                        .anyExchange().authenticated()
+                        .anyExchange().permitAll()
                 )
-                .httpBasic(Customizer.withDefaults());
-//                .formLogin(ServerHttpSecurity.FormLoginSpec::disable);
+                .httpBasic(ServerHttpSecurity.HttpBasicSpec::disable)
+                .formLogin(ServerHttpSecurity.FormLoginSpec::disable);
 
         return http.build();
     }
